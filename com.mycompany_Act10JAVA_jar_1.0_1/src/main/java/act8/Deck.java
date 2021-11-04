@@ -1,0 +1,84 @@
+package act8;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
+public class Deck {
+
+    private final String[] paloDeck = {"corazones", "diamantes", "trébol", "picas"};
+    private final String[] colorDeck = {"rojo", "negro"};
+    private final String[] valorDeck = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "A", "J", "Q", "K"};
+
+    private final ArrayList<Card> deck;
+
+    public Deck() {
+        deck = new ArrayList<>();
+
+        for (int palo = 0; palo < 2; palo++) {
+            for (String valorDeck1 : valorDeck) {
+                deck.add(new Card(paloDeck[palo], colorDeck[0], valorDeck1));
+            }
+        }
+
+        for (int palo = 2; palo < 4; palo++) {
+            for (String valorDeck1 : valorDeck) {
+                deck.add(new Card(paloDeck[palo], colorDeck[1], valorDeck1));
+            }
+        }
+    }
+
+    public int getSize() {
+        return deck.size();
+    }
+
+    public ArrayList<Card> getDeck() {
+        return deck;
+    }
+
+    public void shuffle() {
+        Collections.shuffle(deck);
+        System.out.println("Se mezcló el Deck.");
+        deck.forEach(elemento -> {
+            System.out.print(elemento + " / ");
+        });
+    }
+
+    public void head() throws Exception{
+        try{
+        System.out.println(deck.get(0));
+        deck.remove(0);
+        System.out.println("Quedan " + deck.size() + " cartas");
+        }catch (IllegalArgumentException a){
+            System.out.println("Se han agotado las cartas");
+            System.exit(0);
+        }
+    }
+
+    public void pick() throws Exception{
+       try{
+        Random random = new Random();
+        System.out.println(deck.get(random.nextInt(deck.size())));
+        deck.remove(random.nextInt(deck.size()));
+        System.out.println("Quedan " + deck.size() + " cartas");
+        }catch (IllegalArgumentException a){
+            System.out.println("Se han agotado las cartas");
+            System.exit(0);
+        }
+    }
+
+    public void hand() throws Exception{
+        try{
+        for (int i = 0; i <= 4; i++) {
+            System.out.println(deck.get(i));
+        }
+        for (int i = 0; i <= 4; i++) {
+            deck.remove(i);
+        }
+        System.out.println("Quedan " + deck.size() + " cartas");
+        }catch (IllegalArgumentException a){
+            System.out.println("Se han agotado las cartas");
+            System.exit(0);
+        }
+    }
+}
